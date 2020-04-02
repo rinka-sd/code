@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    main {
+        display: flex;
+        height: 100vh;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    body {
+        background: url('./bg.png') no-repeat center center;
+    }
+
+    #wrapper .row kbd {
+        position: relative;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 70px;
+        height: 70px;
+        margin: 8px;
+        border-radius: 10px;
+        font-size: 26px;
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: black;
+        color: white;
+    }
+    #wrapper .row{
+        margin: 2px;
+    }
+
+    kbd >button {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        display: none;
+    }
+    kbd:hover {
+        box-shadow: 0px 0px 2px 3px rgba(255, 255, 255, 0.2);
+        transition: 0.2s;
+    }
+
+    kbd:hover>button{
+        display: inline-block;
+    }
+
+    kbd>img {
+        width: 16px;
+        width: 16px;
+        position: absolute;
+        left: 5px;
+        bottom: 5px;
+    }
+</style>
+<body>
+   
+    <main>
+        
+        <div id="wrapper"></div>
+    </main>
+
+    <script>
+        var keys = [
+            ['~', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '+'],
+            ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '{', '}'],
+            ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ':', '"'],
+            ['z', 'x', 'c', 'v', 'b', 'n', 'm', '<', '>', '?']
+        ]
+        var hash = {
+            q: 'qq.com',
+            w: 'weibo.com',
+            e: 'ele.me',
+            r: 'renren.com',
+            t: 'taobao.com',
+            l: 'lol.com',
+            g: 'github.com',
+            a: 'alibaba.com',
+            x: 'xiedaimala.com',
+            b: 'baidu.com',
+        }
+        for(let i = 0;i<keys.length;i++){
+            let div1 = document.createElement('div')
+            wrapper.appendChild(div1)
+            div1.className = 'row'
+            let row = keys[i];
+            for(let j=0;j<row.length;j++){
+                let kbd1 = document.createElement('kbd')
+                kbd1.textContent = row[j]
+                let button1 = document.createElement('button')
+                img1 = document.createElement('img')
+                button1.textContent = '编辑'
+                button1.id = row[j]
+                button1.onclick = function (onclick){
+                    button2 =  onclick.target
+                    img2 = button2.previousSibling
+                    let inputsrc = prompt("请输入网址")
+                    hash[button2.id] = inputsrc
+                    img2.src = 'http://'+inputsrc+'/favicon.ico'
+                    img2.onerror = function (e){
+                        e.target.src = './dot.jpg'
+                    }
+                }
+                if(hash[row[j]]){
+                    img1.src = 'http://'+hash[row[j]]+'/favicon.ico'
+                }else{
+                    img1.src = './dot.jpg'
+                }
+                img1.onerror = function (e){
+                        e.target.src = './dot.jpg'
+                }
+                kbd1.appendChild(img1)
+                kbd1.appendChild(button1)
+                div1.appendChild(kbd1)
+            }
+            
+        }
+        document.onkeypress = function (key12) {
+            let press1=key12.key
+            window.open('http://'+hash[press1], '_blank')
+        }
+    </script>
+</body>
+</html>
