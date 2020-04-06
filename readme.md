@@ -1,4 +1,5 @@
 页面：
+
 	正弦波：
 	https://rinka-sd.github.io/code/additional/sineWave.html
 	备注：js动画，虽然用了查找表减少Math.sin()调用，但是依然占资源
